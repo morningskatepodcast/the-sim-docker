@@ -29,12 +29,14 @@ today$Line <- substring((today$Pos),1,1)
 today$CWD <- substring((today$Pos),2,2)
 
 # Fix all the empty categories
-today$A30 <- ifelse(is.na(today$A30), today$A365, (today$A30*0.5) + (today$A365*0.5))
-today$iC30 <- ifelse(is.na(today$iC30), today$iC365, (today$iC30*0.5) + (today$iC365*0.5))
-today$G30 <- ifelse(is.na(today$G30), today$G365, (today$G30*0.5) + (today$G365*0.5))
+today$A30 <- ifelse(is.na(today$A30), today$A365, (today$A30))
+today$iC30 <- ifelse(is.na(today$iC30), today$iC365, (today$iC30))
+today$G30 <- ifelse(is.na(today$G30), today$G365, (today$G30))
 today$Min30 <- ifelse(is.na(today$Min30), today$Min365, today$Min30)
-today$PPShots30 <- ifelse(is.na(today$PPShots30), today$PPShots365, (today$PPShots30*0.5) + (today$PPShots365*0.5))
+today$PPShots30 <- ifelse(is.na(today$PPShots30), today$PPShots365, (today$PPShots30))
 today$Team <- ifelse(today$Team=="VGK","VAN",as.character(today$Team))
+today$games <- ifelse(today$games == 28, 26, today$games)
+
 ## Predict Ownership
 today$pOwn <- predict.lm(pOwn,today)
 today$pOwnc <- predict.lm(pOwnc,today)
@@ -51,12 +53,13 @@ today$PPLow <- ifelse(substring((today$Pos),1,1)>2 & today$PP. > 0, 1, 0)
 today$Line <- substring((today$Pos),1,1)
 today$CWD <- substring((today$Pos),2,2)
 
+
 # Fix all the empty categories
-today$A30 <- ifelse(is.na(today$A30), today$A365, (today$A30*0.75) + (today$A365*0.25))
-today$iC30 <- ifelse(is.na(today$iC30), today$iC365, (today$iC30*0.75) + (today$iC365*0.25))
-today$G30 <- ifelse(is.na(today$G30), today$G365, (today$G30*0.75) + (today$G365*0.25))
+today$A30 <- ifelse(is.na(today$A30), today$A365, (today$A30))
+today$iC30 <- ifelse(is.na(today$iC30), today$iC365, (today$iC30)) 
+today$G30 <- ifelse(is.na(today$G30), today$G365, (today$G30))
 today$Min30 <- ifelse(is.na(today$Min30), today$Min365, today$Min30)
-today$PPShots30 <- ifelse(is.na(today$PPShots30), today$PPShots365, (today$PPShots30*0.75) + (today$PPShots365*0.25))
+today$PPShots30 <- ifelse(is.na(today$PPShots30), today$PPShots365, (today$PPShots30))
 #Now add the predictions including VGK
 today$pOwnc <- x
 ## Predict Ownership with sum = 800%
