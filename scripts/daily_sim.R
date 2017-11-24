@@ -35,7 +35,7 @@ today$G30 <- ifelse(is.na(today$G30), today$G365, (today$G30))
 today$Min30 <- ifelse(is.na(today$Min30), today$Min365, today$Min30)
 today$PPShots30 <- ifelse(is.na(today$PPShots30), today$PPShots365, (today$PPShots30))
 today$Team <- ifelse(today$Team=="VGK","VAN",as.character(today$Team))
-today$games <- ifelse(today$games == 28, 26, today$games)
+today$Games <- ifelse(today$Games == 28, 26, today$Games)
 
 ## Predict Ownership
 today$pOwn <- predict.lm(pOwn,today)
