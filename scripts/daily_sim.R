@@ -112,7 +112,7 @@ colnames(today)[31] <- "Freq"
 today$Freq <- ifelse(is.na(today$Freq),min(subset(today,!is.na(today$Freq))$Freq),today$Freq)
 
 # Leverage
-today$PICL<- today$Mag * today$Freq^2
+today$PICL<- today$Mag * today$Freq^0.7684264
 today$Payoff <- ((today$pp1*1)+(today$pp1*2)+(today$pp1*3)+(today$pp1*4)+(today$pp1*5)+(today$pp1*6)+(today$pp1*7))/8
 today$Leverage <- today$Payoff/predict.lm(m.leverage,today)
 
