@@ -7,10 +7,11 @@ import time
 # Month and Date info
 m = time.strftime("%m") #Needs to update automatically
 d = time.strftime("%-d")
+y = time.strftime("%Y")
 
 #Goes to FL and scrapes info
 class LabsScraper:
-    API_url = 'http://www.fantasylabs.com/api/teams/4/games/' + m + '-' + d + '-2017'
+    API_url = 'http://www.fantasylabs.com/api/teams/4/games/' + m + '-' + d + '-' + y
     # Get the list of teams playing
     def get_teams_info(self):
         response = requests.get(self.API_url)
@@ -21,7 +22,7 @@ class LabsScraper:
     # Get lines for each team
     def get_lines(self,team):
         self.scraped_lines = []
-        url = 'http://www.fantasylabs.com/api/lines/4/' + str(team) + '/' + m + '-' + d + '-2017'
+        url = 'http://www.fantasylabs.com/api/lines/4/' + str(team) + '/' + m + '-' + d + '-' + y
         response_lines = requests.get(url)
         if response_lines.json()['NextMatchupData'][0]['Properties']['Pts'] == None:
             total = 5.5/2
@@ -62,9 +63,7 @@ class LabsScraper:
             self.get_lines(team)
             with open('output/fl-latest.csv', 'ab') as csvfile:
                 writer = csv.writer(csvfile)
-                for r in self.scraped_lines:
-                    # date = str(m)+'/'+str(d)+'/2017'
-                    # r.append(date)
+                for r in filter(lambda x: x[3] not in ['P1', 'P2'], self.scraped_lines):
                     writer.writerow(r)
             del writer
 
